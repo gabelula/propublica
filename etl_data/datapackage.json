@@ -1,0 +1,15 @@
+{
+    "name": "open-payments",
+    "title": "open payments to physicians",
+    "path": "openpayments_physicians_with_npi.csv",
+    "description": "How much money individual doctors are paid by drug and device companies.",
+    "format": "csv",
+    "mediatype": "text/csv",
+    "encoding": "utf-8",
+    "schema": {
+        "fields": [
+            {   "PHYSN_MSTR_PRFL_ID	DATA_SOURCE	PHYSN_1ST_NAME	PHYSN_MDL_NAME	PHYSN_LAST_NAME	PHYSN_LINE_1_BUSNS_ADR	PHYSN_LINE_2_BUSNS_ADR	PHYSN_CITY_NAME	PHYSN_STATE_CD	PHYSN_ZIP_PLUS_4_CD	PRIMARY_TXNMY_CD_1	PRIMARY_TXNMY_TYPE_1	PRIMARY_TXNMY_CLASSIFICATION_1	PRIMARY_TXNMY_SPECIALIZATION_1	PRIMARY_TXNMY_CD_2	PRIMARY_TXNMY_TYPE_2	PRIMARY_TXNMY_CLASSIFICATION_2	PRIMARY_TXNMY_SPECIALIZATION_2	NPI
+"}
+        ]
+    }
+}
