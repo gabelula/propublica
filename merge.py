@@ -30,7 +30,8 @@ def search_npi(file, npi_field, fields):
             if temp and reduce(lambda x, y: x and y, temp):
                 return row[npi_field]
     
-    return null
+    print 'NPI not found for fields {0}'.format(fields)
+    return None 
 
 
 def get_values_to_identify_physician(row):
