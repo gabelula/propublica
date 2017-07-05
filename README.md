@@ -1,5 +1,7 @@
 # README
 
+[![goodtables.io](https://goodtables.io/badge/github/gabelula/propublica.svg)](https://goodtables.io/github/gabelula/propublica)
+
 * How to execute this script
 * How the script works
 
