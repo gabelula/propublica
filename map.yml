@@ -1,6 +1,6 @@
-fields:
-        PHYSN_LAST_NAME: 'Provider Last Name (Legal Name)'
-        PHYSN_1ST_NAME: 'Provider First Name'
-        PHYSN_LINE_1_BUSNS_ADR: 'Provider First Line Business Practice Location Address'
-        PHYSN_CITY_NAME: 'Provider Business Practice Location Address City Name'
-        PHYSN_STATE_CD: 'Provider Business Practice Location Address State Name'
+'Provider Last Name (Legal Name)': 'PHYSN_LAST_NAME'
+'Provider First Name': 'PHYSN_1ST_NAME'
+'Provider First Line Business Practice Location Address': 'PHYSN_LINE_1_BUSNS_ADR'
+'Provider Business Practice Location Address City Name': 'PHYSN_CITY_NAME'
+'Provider Business Practice Location Address State Name': 'PHYSN_STATE_CD'
+'Healthcare Provider Taxonomy Code_1': 'PRIMARY_TXNMY_CD_1'
