@@ -6,6 +6,7 @@
 import pandas as pd
 import optparse
 from yaml import load, dump
+import sys
 
 # TODO: data validation at the end
 
@@ -47,6 +48,10 @@ def main():
         payments[fields_to_map[key]] = payments[fields_to_map[key]].str.lower()
     
     # Confirm that our fields to map are indexes of the CSV tables.
+    try:
+        payments.set_index(fields_to_map.values(), verify_integrity=True)
+    except:
+        sys.exit('There are duplicate rows for those keys in the map.')
 
     # Left Join on the payments file with the file that has the NPI by the physician name.
     full_merged = pd.merge(payments, nppes, how='left', left_on=fields_to_map.values(), right_on=fields_to_map.keys(), indicator=True)
