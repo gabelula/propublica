@@ -1,7 +1,7 @@
 # coding=utf-8
 #!/usr/bin/env python
 
-# Script that creates a CSV that has all the information from the Open Payments provider table, plus each provider's NPI.
+import click
 
 import pandas as pd
 import optparse
@@ -9,38 +9,42 @@ from yaml import load, dump
 import sys
 
 # TODO: data validation at the end
-
-# TODO: manage errors
-# TODO: convert it into a cli
 # TODO: add logging
 # TODO: add tests
 
 def get_mapping_fields():
-    with open('map.yml', 'rb') as csv_file:
-        data = load(csv_file)
-        return data
+    try:
+        with open('join_fields.yml', 'rb') as csv_file:
+            data = load(csv_file)
+            return data
+    except:
+        sys.exit('It needs a file join_fields.yml with the fields for the join.')
 
-def main():
-    
-    # Get the options from the command line.
-    p = optparse.OptionParser()
-    p.add_option('--payments', '-p', default='etl_data/01-openpayments_physicians.csv')
-    p.add_option('--out', '-o', default='etl_data/openpayments_physicians_with_npi.csv')
-    p.add_option('--nppes', '-n', default='etl_data/02-nppes_npi.csv')
+@click.command()
+@click.option('--payments_filename', default='etl_data/01-openpayments_physicians.csv', help='Open payments providers file name.')
+@click.option('--nppes_filename', default='etl_data/02-nppes_npi.csv', help='NPI providers file name.')
+@click.option('--out', default='etl_data/openpayments_physicians_with_npi.csv', help='New file merging providers with its NPIs.')
+def merge_files(payments_filename, nppes_filename, out):
+    """It reads both CSV files and merge them into a new one."""
 
-    options, arguments = p.parse_args()
+    # The files to merge.
+    payments = pd.read_csv(payments_filename)
+    nppes = pd.read_csv(nppes_filename)
 
-    payments_file = options.payments
-    new_payments_file = options.out
-    nppes_file = options.nppes
+    merged = merge_physicians(payments, nppes)
 
+    # Save to the new CSV file.
+    merged.to_csv(out, index=False)
+
+    click.echo('Created new file %s!' % out)
+
+    # Check that all the rows in payments are included and have NPI    
+
+def merge_physicians(payments, nppes):
+    """Creates a dataframe that has all the information from the Open Payments provider table, plus each provider's NPI."""
 
     # The fields to do the join between files.
     fields_to_map = get_mapping_fields()
-
-    # The files to merge.
-    payments = pd.read_csv(payments_file)
-    nppes = pd.read_csv(nppes_file)#, usecols=fields_to_map.keys)
 
     # Because pandas merge use sensitive case we need to lower the case for both.
     for key in fields_to_map:
@@ -62,8 +66,8 @@ def main():
 
     merged = full_merged.ix[:, new_columns]
 
-    # Save to the new CSV file.
-    merged.to_csv(new_payments_file, index=False)
+    return merged
+
 
 if __name__ == '__main__':
-    main()
+    merge_files()

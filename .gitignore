@@ -1,3 +1,5 @@
 .DS_Store
+join_fields.yml
 ETLTest.pdf
 .~lock*
+.env
